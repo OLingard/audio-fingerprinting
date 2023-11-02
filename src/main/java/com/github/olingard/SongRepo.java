@@ -26,7 +26,7 @@ public class SongRepo {
     for (File song : Objects.requireNonNull(wavSongs.listFiles())) {
       int songID = songDatabase.size();
       songDatabase.add(song.getName());
-
+      System.out.println(song);
       byte[] soundBytes = WaveConverter.convertToByteArray(song);
       Complex[][] frequencyData = AudioAnalysis.do16BitAudioAnalysis(soundBytes, false);
       int[][] keyPoints = KeyPointAnalysis.keyPoints(frequencyData);

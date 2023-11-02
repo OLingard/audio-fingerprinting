@@ -51,12 +51,12 @@ public class SongMatch {
       List<DataPoint> bucket = hashDatabase.get(hashing);
       if (bucket != null && Arrays.stream(keyPointsRecording[i]).sum() != 0) {
         for (DataPoint data : bucket) {
-          List<Integer> timeDifference = songMatchesByTimeOffset.get(data.getSongID());
+          List<Integer> timeDifference = songMatchesByTimeOffset.get(data.songID());
           if (timeDifference == null) {
             timeDifference = new ArrayList<>();
           }
-          timeDifference.add((data.getTime() - i) - (data.getTime() - i) % FUZZ_FACTOR);
-          songMatchesByTimeOffset.put(data.getSongID(), timeDifference);
+          timeDifference.add((data.time() - i) - (data.time() - i) % FUZZ_FACTOR);
+          songMatchesByTimeOffset.put(data.songID(), timeDifference);
         }
       }
     }

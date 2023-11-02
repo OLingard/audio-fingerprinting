@@ -1,0 +1,65 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id "application"
+}
+
+apply plugin : "java"
+
+group = 'com.github.olingard'
+version = '1.0-SNAPSHOT'
+
+ext {
+    javaMainClass = "${group}.Main"
+}
+
+application {
+    mainClassName = javaMainClass
+}
+
+run {
+    standardInput = System.in
+}
+
+repositories {
+    mavenLocal()
+    maven {
+        url = uri('https://repo.maven.apache.org/maven2/')
+    }
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+    }
+    test {
+        java {
+            srcDir 'src/test/java'
+        }
+        resources {
+            srcDir 'src/test/resources'
+        }
+    }
+}
+
+dependencies {
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.2.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.9.2'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from(components.java)
+        }
+    }
+}
